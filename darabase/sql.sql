@@ -12,22 +12,10 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-
--- gallery 데이터베이스 구조 내보내기
-DROP DATABASE IF EXISTS `gallery`;
-CREATE DATABASE IF NOT EXISTS `gallery` /*!40100 DEFAULT CHARACTER SET utf8mb3 */;
-USE `gallery`;
-
--- 테이블 gallery.items 구조 내보내기
-DROP TABLE IF EXISTS `items`;
-CREATE TABLE IF NOT EXISTS `items` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '상품 번호',
-  `name` varchar(50) NOT NULL COMMENT '상품명',
-  `img_path` varchar(100) DEFAULT NULL COMMENT '이미지 경로',
-  `price` int(11) DEFAULT NULL COMMENT '가격',
-  `discount_per` int(11) DEFAULT NULL COMMENT '할인률',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+-- 테이블 데이터 gallery.carts:~3 rows (대략적) 내보내기
+DELETE FROM `carts`;
+/*!40000 ALTER TABLE `carts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `carts` ENABLE KEYS */;
 
 -- 테이블 데이터 gallery.items:~7 rows (대략적) 내보내기
 DELETE FROM `items`;
@@ -38,21 +26,21 @@ INSERT INTO `items` (`id`, `name`, `img_path`, `price`, `discount_per`) VALUES
 	(3, 'vincent', '/img/vintage-gd8f6edba3_1920.jpg', 30000000, 30);
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 
--- 테이블 gallery.members 구조 내보내기
-DROP TABLE IF EXISTS `members`;
-CREATE TABLE IF NOT EXISTS `members` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(50) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
-
 -- 테이블 데이터 gallery.members:~1 rows (대략적) 내보내기
 DELETE FROM `members`;
 /*!40000 ALTER TABLE `members` DISABLE KEYS */;
 INSERT INTO `members` (`id`, `email`, `password`) VALUES
 	(1, 'example@example.com', '1234');
 /*!40000 ALTER TABLE `members` ENABLE KEYS */;
+
+-- 테이블 데이터 gallery.orders:~7 rows (대략적) 내보내기
+DELETE FROM `orders`;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` (`id`, `member_id`, `name`, `address`, `payment`, `card_number`, `items`) VALUES
+	(1, 1, '김철수', '서울시', 'card', '1234567', ''),
+	(6, 1, '김영희', '대전', 'card', '435433', '[{"id":1,"name":"vintage","imgPath":"/img/vincent-van-gogh-g9edbf42e0_1920.jpg","price":"10000000","discountPer":5},{"id":2,"name":"post","imgPath":"/img/post-impressionist-g269c3ebe1_1920.jpg","price":"20000000","discountPer":10}]'),
+	(7, 1, '김종수', '동대문수', 'card', '223554365423', '[{"id":1,"name":"vintage","imgPath":"/img/vincent-van-gogh-g9edbf42e0_1920.jpg","price":"10000000","discountPer":5},{"id":2,"name":"post","imgPath":"/img/post-impressionist-g269c3ebe1_1920.jpg","price":"20000000","discountPer":10},{"id":3,"name":"vincent","imgPath":"/img/vintage-gd8f6edba3_1920.jpg","price":"30000000","discountPer":30}]');
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
