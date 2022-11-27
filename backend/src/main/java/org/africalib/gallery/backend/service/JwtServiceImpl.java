@@ -13,13 +13,13 @@ import java.util.Map;
 @Service("jwtService")
 public class JwtServiceImpl implements JwtService {
 
-    private String secretKey = "DTGH%&*LJE@F BJHK)__+%#FDV$#TN*K(*KK$%TG#@$#D@#FY^!%JJ(:LL()PL)";
+    private String secretKey = "DTGH%&*LJE@F BJHK)__+%#FDV$#TN*K(*KK$%TG#@$#D@#FY^!%JJ(:LL()PL)ASDFSDGFGGHHJJJJJJJSWQAEDFDWEEWFF";
 
     @Override
     public String getToken(String key, Object value) {
 
         Date expTime = new Date();
-        expTime.setTime(expTime.getTime() * 1000 * 60 * 5);
+        expTime.setTime(expTime.getTime() + 1000 * 60 * 5);
         byte[] secretByteKey = DatatypeConverter.parseBase64Binary(secretKey);
         Key signKey = new SecretKeySpec(secretByteKey, SignatureAlgorithm.HS256.getJcaName());
 
@@ -53,5 +53,21 @@ public class JwtServiceImpl implements JwtService {
         }
 
         return null;
+    }
+
+    @Override
+    public boolean isValid(String token) {
+        return this.getClaims(token) != null;
+    }
+
+    @Override
+    public int getId(String token) {
+        Claims claims = this.getClaims(token);
+
+        if (claims != null) {
+            return Integer.parseInt(claims.get("id").toString());
+        }
+
+        return 0;
     }
 }

@@ -26,7 +26,7 @@ export default {
   setup() {
     const check = () => {
       axios.get("/api/account/check").then(({data}) => {
-        console.log(data);
+        //console.log(data);
         store.commit("setAccount", data || 0);
       })
     }

@@ -28,7 +28,7 @@ export default {
     })
 
     axios.get("api/items").then(({data}) => {
-      console.log(data);
+      //console.log(data);
       state.items = data;
     })
     return {state};
